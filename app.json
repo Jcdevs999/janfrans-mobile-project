@@ -19,10 +19,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.Janfrans"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "82151455-267e-4ff7-9673-bb76a66ac8b4"
+      }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
