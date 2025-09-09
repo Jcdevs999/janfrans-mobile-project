@@ -54,7 +54,7 @@ export default function Dashboard() {
         if (entry) {
             console.log('latitudeee', entry?.latitude);
             console.log('longitudeee', entry?.longitude);
-            var APIURL = "https://janfrans.site/api-map.php";
+            var APIURL = "https://janfrans.net/api-map.php";
             var headers = {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

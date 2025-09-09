@@ -31,7 +31,7 @@ export default function Login() {
         if (form.email && form.password) {
             setIsLoading(true);
             
-            var APIURL = "https://janfrans.site/api-login.php";
+            var APIURL = "https://janfrans.net/api-login.php";
             var headers = {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

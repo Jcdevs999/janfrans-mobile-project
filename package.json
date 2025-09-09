@@ -1,8 +1,9 @@
 {
   "name": "janfrans",
-  "license": "0BSD",
   "version": "1.0.0",
+  "private": true,
   "main": "index.js",
+  "license": "0BSD",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
@@ -11,28 +12,20 @@
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.4.0",
-    "@react-native/gradle-plugin": "^0.80.0",
-    "@react-native/metro-config": "^0.80.0",
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/native-stack": "^7.2.0",
-    "expo": "^53.0.20",
+    "expo": "53.0.22",
     "expo-font": "~13.3.2",
-    "expo-location": "~18.1.5",
+    "expo-location": "18.1.6",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
-    "react-native": "0.79.3",
-    "react-native-maps": "^1.20.1",
-    "react-native-maps-directions": "^1.9.0",
+    "react-native": "0.79.5",
+    "react-native-maps": "1.20.1",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "@react-native-community/cli": "latest",
-    "metro": "^0.82.4",
-    "metro-config": "^0.82.4",
-    "metro-core": "^0.82.4"
-  },
-  "private": true
+    "@babel/core": "^7.20.0"
+  }
 }

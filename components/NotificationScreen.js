@@ -52,7 +52,7 @@ export default function NotificationScreen() {
     const [notification, setNotification] = React.useState([]);
 
     const getNotificationListing = async () => {
-        var APIURL = "https://janfrans.site/api-notification.php";
+        var APIURL = "https://janfrans.net/api-notification.php";
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

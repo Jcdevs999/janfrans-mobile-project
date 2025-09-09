@@ -96,7 +96,7 @@ export default function DeliveryScreen ()
 
     const getDeliveryListing = async () =>
     {
-        var APIURL = "https://janfrans.site/api-deliveries.php";
+        var APIURL = "https://janfrans.net/api-deliveries.php";
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -123,7 +123,7 @@ export default function DeliveryScreen ()
 
     const validateTrackingNumber = async () =>
     {
-        var APIURL = "https://janfrans.site/api-validate-tracking.php";
+        var APIURL = "https://janfrans.net/api-validate-tracking.php";
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -163,7 +163,7 @@ export default function DeliveryScreen ()
         }
 
         // Proceed to register if valid
-        var APIURL = "https://janfrans.site/api-register-parcel.php";
+        var APIURL = "https://janfrans.net/api-register-parcel.php";
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -198,7 +198,7 @@ export default function DeliveryScreen ()
 
     const updateParcel = async ( status, deliveryId ) =>
     {
-        var APIURL = "https://janfrans.site/api-update-delivery.php";
+        var APIURL = "https://janfrans.net/api-update-delivery.php";
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

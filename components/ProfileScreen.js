@@ -102,7 +102,7 @@ export default function ProfileScreen ()
     {
         if ( profileForm.username && profileForm.password )
         {
-            var APIURL = "https://janfrans.site/api-update-profile.php";
+            var APIURL = "https://janfrans.net/api-update-profile.php";
             var headers = {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -168,7 +168,7 @@ export default function ProfileScreen ()
             ) )
         {
             setIsLoading( true );
-            var APIURL = "https://janfrans.site/api-change-password.php";
+            var APIURL = "https://janfrans.net/api-change-password.php";
             var headers = {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

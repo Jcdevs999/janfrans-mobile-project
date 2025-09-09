@@ -59,7 +59,7 @@ export default function HistoryScreen() {
     }, []);
     const [deliveries, setDeliveries] = React.useState([]);
     const getDeliveryListing = async () => {
-        var APIURL = "https://janfrans.site/api-deliveries.php";
+        var APIURL = "https://janfrans.net/api-deliveries.php";
         var headers = {
           'Accept': 'application/json',
           'Content-Type': 'application/json'

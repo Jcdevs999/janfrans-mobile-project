@@ -36,7 +36,7 @@ export default function Register() {
 
     const registrationSubmit = () => {
         if(regForm.uname && regForm.pass){
-            var APIURL = "https://janfrans.site/api-register.php";
+            var APIURL = "https://janfrans.net/api-register.php";
             var headers = {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
