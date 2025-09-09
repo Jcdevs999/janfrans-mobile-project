@@ -2,9 +2,10 @@ export const COLORS = {
 
     // Default
     background: '#ffffff',
-    header: '#ec0707ff',
-    button: '#2ab60eff',
+    header: '#075eec',
+    button: '#075eec',
     inputBorder: '#000000',
+    total: '#000000',
 
     // Purpol Accent
     // background: '#ffffff',

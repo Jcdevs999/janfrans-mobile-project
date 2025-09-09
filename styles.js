@@ -163,6 +163,82 @@ module.exports = StyleSheet.create({
       paddingTop: StatusBar.currentHeight,
       justifyContent: "center",
       alignItems: "center"
-    }
-  }
-);
+    },
+
+    // ========== NEW LOGO STYLES ==========
+    
+    // Enhanced logo container (replaces your existing logoContainer if you want)
+    logoContainerEnhanced: {
+        alignItems: 'center',
+        marginBottom: 40,
+        marginTop: 20,
+    },
+    
+    // Responsive logo sizes
+    logoLarge: {
+        width: 180,
+        height: 100,
+        marginBottom: 15,
+    },
+    
+    logoSmall: {
+        width: 120,
+        height: 60,
+        marginBottom: 10,
+    },
+    
+    // Brand container for logo + text
+    brandContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 30,
+        justifyContent: 'center',
+    },
+    
+    brandTextContainer: {
+        marginLeft: 15,
+        alignItems: 'flex-start',
+    },
+    
+    brandTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#333',
+        textAlign: 'center',
+        marginTop: 8,
+    },
+    
+    brandName: {
+        fontSize: 26,
+        fontWeight: 'bold',
+        color: '#333',
+        letterSpacing: 1,
+    },
+    
+    brandSubtitle: {
+        fontSize: 14,
+        color: '#666',
+        fontWeight: '300',
+        marginTop: 2,
+    },
+    
+    // Logo with shadow/background
+    logoContainerWithShadow: {
+        alignItems: 'center',
+        marginBottom: 30,
+    },
+    
+    logoBackground: {
+        backgroundColor: '#f8f9fa',
+        borderRadius: 15,
+        padding: 20,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 5, // For Android
+    },
+});

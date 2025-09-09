@@ -6,6 +6,7 @@ import { COLORS } from '../colors';
 const styles = require( '../styles' );
 import { ToastAndroid } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function ProfileScreen ()
 {
@@ -29,6 +30,11 @@ export default function ProfileScreen ()
     const [ isOTPModalVisible, setOTPModalVisible ] = React.useState( false );
     const [ isSignoutModalVisible, setSignoutModalVisible ] = React.useState( false );
     const [ isLoading, setIsLoading ] = React.useState( false );
+
+    // Password visibility states
+    const [ showPassword, setShowPassword ] = React.useState( false );
+    const [ showConfirmPassword, setShowConfirmPassword ] = React.useState( false );
+    const [ showProfilePassword, setShowProfilePassword ] = React.useState( false );
 
     const [ profileForm, setProfileInfoForm ] = React.useState( {
         fullName: '',
@@ -253,6 +259,7 @@ export default function ProfileScreen ()
                 <TouchableOpacity style={[ styles.buttonContainer, { width: '40%', borderRadius: 25, marginTop: 30, backgroundColor: 'red' } ]} onPress={() => setSignoutModalVisible( true )}>
                     <Text style={[ styles.buttonLabel, { fontSize: 14 } ]}>Sign Out</Text>
                 </TouchableOpacity>
+                
                 <Modal
                     visible={isModalVisible}
                     onRequestClose={() => setEditProfileModalVisible( false )}
@@ -333,21 +340,48 @@ export default function ProfileScreen ()
                                 errors.username ? <Text style={styles.warning}>{errors.username}</Text> : null
                             }
                             <Text style={[ styles.textLabel, { paddingVertical: 10 } ]}>Password</Text>
-                            <TextInput
-                                style={styles.textInput}
-                                onChangeText={password => setProfileInfoForm( { ...profileForm, password } )}
-                                value={profileForm.password}
-                                placeholder='Password'
-                            />
-                            {
-                                errors.password ? <Text style={styles.warning}>{errors.password}</Text> : null
-                            }
+                            
+                            {/* Simple Profile Password Input */}
+                            <View style={{ position: 'relative' }}>
+                                <TextInput
+                                    style={[styles.textInput, { paddingRight: 50 }]}
+                                    onChangeText={password => setProfileInfoForm( { ...profileForm, password } )}
+                                    value={profileForm.password}
+                                    placeholder='Password'
+                                    secureTextEntry={!showProfilePassword}
+                                    autoCorrect={false}
+                                    autoCapitalize="none"
+                                />
+                                {profileForm.password ? (
+                                    <TouchableOpacity
+                                        style={{
+                                            position: 'absolute',
+                                            right: 15,
+                                            height: '100%',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            width: 30
+                                        }}
+                                        onPress={() => setShowProfilePassword(!showProfilePassword)}
+                                        activeOpacity={0.7}
+                                    >
+                                        <Icon
+                                            name={showProfilePassword ? 'visibility-off' : 'visibility'}
+                                            size={22}
+                                            color="#666"
+                                        />
+                                    </TouchableOpacity>
+                                ) : null}
+                            </View>
+                            {errors.password ? <Text style={styles.warning}>{errors.password}</Text> : null}
+                            
                             <TouchableOpacity style={styles.buttonContainer} onPress={() => updateProfileSubmit()}>
                                 <Text style={styles.buttonLabel}>Update</Text>
                             </TouchableOpacity>
                         </View>
                     </ScrollView>
                 </Modal>
+                
                 <Modal
                     visible={isChangePasswordModalVisible}
                     onRequestClose={() => setChangePasswordModalVisible( false )}
@@ -356,32 +390,85 @@ export default function ProfileScreen ()
                     <View style={[ styles.container ]}>
                         <View style={styles.body}>
                             <Text style={[ styles.textLabel, { alignSelf: 'center', marginVertical: 20, fontSize: 20 } ]}>Change Password</Text>
-                            <Text style={[ styles.textDescription, { marginVertical: 20 } ]}>Enter New Password</Text><TextInput
-                                style={styles.textInput}
-                                onChangeText={password => setPasswordForm( { ...passwordForm, password } )}
-                                value={passwordForm.password}
-                                placeholder='New Password'
-                                secureTextEntry />
-                            {
-                                errors.password ? <Text style={styles.warning}>{errors.password}</Text> : null
-                            }
+                            <Text style={[ styles.textDescription, { marginVertical: 20 } ]}>Enter New Password</Text>
+                            
+                            {/* Simple New Password Input */}
+                            <View style={{ position: 'relative' }}>
+                                <TextInput
+                                    style={[styles.textInput, { paddingRight: 50 }]}
+                                    onChangeText={password => setPasswordForm( { ...passwordForm, password } )}
+                                    value={passwordForm.password}
+                                    placeholder='New Password'
+                                    secureTextEntry={!showPassword}
+                                    autoCorrect={false}
+                                    autoCapitalize="none"
+                                />
+                                {passwordForm.password ? (
+                                    <TouchableOpacity
+                                        style={{
+                                            position: 'absolute',
+                                            right: 15,
+                                            height: '100%',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            width: 30
+                                        }}
+                                        onPress={() => setShowPassword(!showPassword)}
+                                        activeOpacity={0.7}
+                                    >
+                                        <Icon
+                                            name={showPassword ? 'visibility-off' : 'visibility'}
+                                            size={22}
+                                            color="#666"
+                                        />
+                                    </TouchableOpacity>
+                                ) : null}
+                            </View>
+                            {errors.password ? <Text style={styles.warning}>{errors.password}</Text> : null}
+                            
                             <Text style={[ styles.textDescription, { marginVertical: 20 } ]}>Confirm Password</Text>
-                            <TextInput
-                                style={styles.textInput}
-                                onChangeText={cpassword => setPasswordForm( { ...passwordForm, cpassword } )}
-                                value={passwordForm.cpassword}
-                                placeholder='Confirm Password'
-                                secureTextEntry
-                            />
-                            {
-                                errors.cpassword ? <Text style={styles.warning}>{errors.cpassword}</Text> : null
-                            }
+                            
+                            {/* Simple Confirm Password Input */}
+                            <View style={{ position: 'relative' }}>
+                                <TextInput
+                                    style={[styles.textInput, { paddingRight: 50 }]}
+                                    onChangeText={cpassword => setPasswordForm( { ...passwordForm, cpassword } )}
+                                    value={passwordForm.cpassword}
+                                    placeholder='Confirm Password'
+                                    secureTextEntry={!showConfirmPassword}
+                                    autoCorrect={false}
+                                    autoCapitalize="none"
+                                />
+                                {passwordForm.cpassword ? (
+                                    <TouchableOpacity
+                                        style={{
+                                            position: 'absolute',
+                                            right: 15,
+                                            height: '100%',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            width: 30
+                                        }}
+                                        onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        activeOpacity={0.7}
+                                    >
+                                        <Icon
+                                            name={showConfirmPassword ? 'visibility-off' : 'visibility'}
+                                            size={22}
+                                            color="#666"
+                                        />
+                                    </TouchableOpacity>
+                                ) : null}
+                            </View>
+                            {errors.cpassword ? <Text style={styles.warning}>{errors.cpassword}</Text> : null}
+                            
                             <TouchableOpacity style={styles.buttonContainer} onPress={() => updatePasswordSubmit()}>
                                 <Text style={styles.buttonLabel}>Submit</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
+                
                 <Modal
                     visible={isOTPModalVisible}
                     onRequestClose={() => setOTPModalVisible( false )}
@@ -389,7 +476,7 @@ export default function ProfileScreen ()
                 >
                     <View style={[ styles.container ]}>
                         <View style={styles.body}>
-                            <Text style={[ styles.textDescription, { textAlign: 'center', marginVertical: 20 } ]}>An OPT has been sent to your email</Text>
+                            <Text style={[ styles.textDescription, { textAlign: 'center', marginVertical: 20 } ]}>An OTP has been sent to your email</Text>
                             <TextInput
                                 style={styles.textInput}
                                 onChangeText={otp => setOTPForm( { ...otpForm, otp } )}
@@ -404,6 +491,7 @@ export default function ProfileScreen ()
                         </View>
                     </View>
                 </Modal>
+                
                 <Modal
                     visible={isSignoutModalVisible}
                     onRequestClose={() => setSignoutModalVisible( false )}

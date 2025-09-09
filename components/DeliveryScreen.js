@@ -311,7 +311,7 @@ export default function DeliveryScreen ()
                                                     <Text style={[ styles.textLabel, {
                                                         fontSize: 16,
                                                         fontWeight: '700',
-                                                        color: COLORS.button
+                                                        color: COLORS.total
                                                     } ]}>
                                                         ₱{parseFloat( item.total_amount ).toLocaleString( 'en-US', {
                                                             minimumFractionDigits: 2,
@@ -652,7 +652,7 @@ export default function DeliveryScreen ()
                                                 <Text style={[ styles.textLabel, {
                                                     fontSize: 16,
                                                     fontWeight: '700',
-                                                    color: COLORS.button
+                                                    color: COLORS.total
                                                 } ]}>
                                                     ₱{parseFloat( item.total_amount ).toLocaleString( 'en-US', {
                                                         minimumFractionDigits: 2,
