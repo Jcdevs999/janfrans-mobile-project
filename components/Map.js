@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Alert } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 const styles = require('../styles');
@@ -14,46 +14,47 @@ export default function Map() {
     const d_lon = route.params?.driver_longitude;
     const userId = route.params?.id;
 
-    const currentPosition = {
+    const initialPosition = {
         latitude: d_lat,
         longitude: d_lon,
-    }
+    };
     
-    const [currentLocation, setCurrentLocation] = React.useState(currentPosition);
+    const [currentLocation, setCurrentLocation] = useState(initialPosition);
     const destination = {
         latitude: c_lat,
         longitude: c_lon,
-    }
-    const [pin, setPinLocation] = React.useState({})
-    const mapRef = React.useRef();
-    const [region, setRegion] = React.useState(null);
+    };
+    const [pin, setPinLocation] = useState({});
+    const mapRef = useRef(null);
+
+    const [region, setRegion] = useState({
+        latitude: parseFloat(d_lat) || 14.6536,
+        longitude: parseFloat(d_lon) || 120.9822,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+    });
     
-    // Use useRef to store the interval ID so it persists across re-renders
     const locationIntervalRef = useRef(null);
 
     useEffect(() => {
         _getLocation();
         setPinLocation(destination);
-        setCurrentLocation(currentPosition);
         
-        // Start the location update interval
         startLocationUpdates();
         
-        // Cleanup interval when component unmounts
         return () => {
             if (locationIntervalRef.current) {
                 clearInterval(locationIntervalRef.current);
             }
         };
-    }, [])
+    }, [] );
+    console.log( _getLocation );
 
     const startLocationUpdates = () => {
-        // Clear any existing interval
         if (locationIntervalRef.current) {
             clearInterval(locationIntervalRef.current);
         }
         
-        // Set up interval to update location every 20 seconds (20000 milliseconds)
         locationIntervalRef.current = setInterval(() => {
             _getLocation();
         }, 20000);
@@ -74,14 +75,12 @@ export default function Map() {
                 timeout: 5000
             });
             
-            // Update the current location state
             const newLocation = {
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude,
             };
             setCurrentLocation(newLocation);
             
-            // Send coordinates to server
             coordinatesSubmit(location.coords);
             
         } catch (error) {
@@ -132,14 +131,6 @@ export default function Map() {
                 region={region}
                 onRegionChangeComplete={setRegion}
                 ref={mapRef}
-                initialRegion={
-                    {
-                        latitude: parseFloat(currentLocation?.latitude),
-                        longitude: parseFloat(currentLocation?.longitude),
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421
-                    }
-                }
                 provider='google'
                 >
                 {

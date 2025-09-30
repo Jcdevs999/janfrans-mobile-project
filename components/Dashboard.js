@@ -7,8 +7,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { COLORS } from '../colors';
 import { useRoute } from '@react-navigation/native';
 import React, { useEffect, useRef } from 'react';
-import * as Location from 'expo-location';
 import { ToastAndroid } from 'react-native';
+import { useLocationTracking } from './LocationService'; // ADD THIS LINE
 
 export default function Dashboard() {
     const Tab = createBottomTabNavigator();
@@ -17,71 +17,19 @@ export default function Dashboard() {
     const email = route.params?.email;
     const userType = route.params?.userType;
     const full_name = route.params?.full_name;
-    
+    const billingType = route.params?.billingType; 
     
     const hasShownLoginToast = useRef(false);
 
+
+    useLocationTracking(userId, userType);
+
     useEffect(() => {
-        
         if (!hasShownLoginToast.current) {
             ToastAndroid.show('Login Successfully', ToastAndroid.SHORT);
             hasShownLoginToast.current = true;
         }
-        
-        _getLocation();
-        coordinatesSubmit();
     }, []);
-
-    const _getLocation = async () => {
-        try {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                console.warn('Permission to access location was denied');
-                return;
-            }
-            let location = await Location.getCurrentPositionAsync({ 
-                accuracy: Location.Accuracy.Highest, 
-                maximumAge: 10000, 
-                timeout: 5000 
-            });
-            coordinatesSubmit(location.coords);
-        } catch (error) {
-            console.warn(error);
-        }
-    }
-
-    const coordinatesSubmit = (entry) => {
-        if (entry) {
-            console.log('latitudeee', entry?.latitude);
-            console.log('longitudeee', entry?.longitude);
-            var APIURL = "https://janfrans.net/api-map.php";
-            var headers = {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            };
-            fetch(APIURL, {
-                method: 'post',
-                headers: headers,
-                body: JSON.stringify({
-                    userId: userId,
-                    latitude: entry.latitude,
-                    longitude: entry.longitude
-                }),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.code == 1) {
-                        // Success - no action needed
-                    } else {
-                        // Handle error if needed
-                    }
-                })
-                .catch((error) => {
-                    console.error('Location submit error:', error);
-                    // Removed toast for API errors as they can be spammy
-                });
-        }
-    }
 
     if (userType == 3) {
         return (
@@ -104,7 +52,7 @@ export default function Dashboard() {
                 <Tab.Screen
                     name='Delivery'
                     component={DeliveryScreen}
-                    initialParams={{ id: userId, email: email, userType: userType }}
+                    initialParams={{ id: userId, email: email, userType: userType, billingType: billingType }}
                     options={{
                         tabBarLabel: 'Delivery',
                         headerShown: false,
@@ -116,7 +64,7 @@ export default function Dashboard() {
                 <Tab.Screen
                     name='History'
                     component={HistoryScreen}
-                    initialParams={{ id: userId, email: email, userType: userType }}
+                    initialParams={{ id: userId, email: email, userType: userType, billingType: billingType }}
                     options={{
                         tabBarLabel: 'History',
                         headerShown: false,
@@ -135,7 +83,6 @@ export default function Dashboard() {
                         tabBarIcon: ({ color }) => (
                             <Ionicons name='notifications' size={20} color={color} />
                         ),
-                        // tabBarBadge: 3
                     }}
                 />
                 <Tab.Screen
@@ -200,7 +147,6 @@ export default function Dashboard() {
                         tabBarIcon: ({ color }) => (
                             <Ionicons name='notifications' size={20} color={color} />
                         ),
-                        // tabBarBadge: 3
                     }}
                 />
                 <Tab.Screen
@@ -218,7 +164,6 @@ export default function Dashboard() {
             </Tab.Navigator>
         );
     } else {
-        // Handle other user types or return null
         return null;
     }
 }

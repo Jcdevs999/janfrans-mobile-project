@@ -163,7 +163,7 @@ export default function DeliveryScreen ()
                 headers: headers,
                 body: JSON.stringify( {
                     userId: userId,
-                    type: 1, 
+                    type: 1,
                     userType: userType,
                     payMode: driverBillingType,
                 } ),
@@ -201,7 +201,7 @@ export default function DeliveryScreen ()
                 } ),
             } );
             const data = await response.json();
-            
+
             return data;
         } catch ( error )
         {
@@ -240,7 +240,7 @@ export default function DeliveryScreen ()
                 getDeliveryListing();
             }, 500 );
             setIsLoading( false );
-            return; 
+            return;
         }
 
 
@@ -350,12 +350,12 @@ export default function DeliveryScreen ()
 
             if ( data.success )
             {
-                
+
                 if ( data.delivery.status_id === 5 )
                 {
                     console.log( '🔄 Found rescheduled delivery, attempting to reactivate...' );
 
-                    
+
                     const reactivateResponse = await fetch( 'https://janfrans.net/api-reactivate-delivery.php', {
                         method: 'POST',
                         headers: {
@@ -375,12 +375,12 @@ export default function DeliveryScreen ()
                     {
                         ToastAndroid.show( 'Rescheduled delivery reactivated and back in transit!', ToastAndroid.LONG );
 
-                        
-                        data.delivery.status_id = 2; 
+
+                        data.delivery.status_id = 2;
                         data.delivery.status_name = 'In Transit';
                         data.delivery.status_color = 'orange';
 
-                        
+
                         setTimeout( () =>
                         {
                             getDeliveryListing();
@@ -391,14 +391,14 @@ export default function DeliveryScreen ()
                     }
                 }
 
-                
+
                 setModalData( prevData =>
                 {
                     const newData = {
                         ...prevData,
                         ...data.delivery,
                         id: deliveryId,
-                        delivery_status: data.delivery.status_id, 
+                        delivery_status: data.delivery.status_id,
                         billing_info: data.billing,
                         has_billing: data.has_billing_record,
                     };
@@ -465,11 +465,13 @@ export default function DeliveryScreen ()
                                                 {item.full_name || item.consignee_name}
                                             </Text>
                                             <Text style={[ styles.textDescription, { fontSize: 13, lineHeight: 18 } ]} numberOfLines={2}>
-                                                {item.street}, {item.barangay}, {item.city}, {item.zipcode}
+                                                {item.street}, {item.barangay}, {item.city}
                                             </Text>
-                                            <Text style={[ styles.textDescription, { fontSize: 13, marginTop: 2 } ]}>
-                                                {item.mobile}
-                                            </Text>
+                                            {item.mobile && (
+                                                <Text style={[ styles.textDescription, { fontSize: 13, marginTop: 2 } ]}>
+                                                    {item.mobile}
+                                                </Text>
+                                            )}
                                         </View>
 
                                         <View style={{ alignItems: 'center', paddingTop: 12 }}>
@@ -553,7 +555,12 @@ export default function DeliveryScreen ()
                                     <Ionicons name='location-outline' size={20} color={'red'} style={{ marginRight: 10, paddingTop: 25, marginBottom: 5 }} />
                                     <View style={{ flex: 1 }}>
                                         <Text style={[ styles.textLabel, { marginBottom: 4 } ]}>{modalData.consignee_name || modalData.full_name}</Text>
-                                        <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>{modalData.street}, {modalData.barangay}, {modalData.city}, {modalData.zipcode}</Text>
+                                        <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>{modalData.street}, {modalData.barangay}, {modalData.city}</Text>
+                                        {modalData.mobile && (
+                                            <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>
+                                                {modalData.mobile}
+                                            </Text>
+                                        )}
                                         {/* Divider */}
                                         <View style={{ height: 1, backgroundColor: COLORS.inputBorder, marginVertical: 12 }} />
                                         <Text style={[ styles.textDescription, { marginBottom: 8, fontWeight: 'bold', fontSize: 14 } ]}>
@@ -730,7 +737,12 @@ export default function DeliveryScreen ()
                                     <Ionicons name='location-outline' size={20} color={'red'} style={{ marginRight: 15 }} />
                                     <View style={{ flex: 1 }}>
                                         <Text style={[ styles.textLabel, { marginBottom: 4 } ]}>{modalData.consignee_name || modalData.full_name}</Text>
-                                        <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>{modalData.street}, {modalData.barangay}, {modalData.city}, {modalData.zipcode}</Text>
+                                        <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>{modalData.street}, {modalData.barangay}, {modalData.city}</Text>
+                                        {modalData.mobile && (
+                                            <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>
+                                                {modalData.mobile}
+                                            </Text>
+                                        )}
                                         {/* divider */}
                                         <View style={{ height: 1, backgroundColor: COLORS.inputBorder, marginVertical: 12 }} />
                                         <Text style={[ styles.textDescription, { marginBottom: 8, fontWeight: 'bold', fontSize: 14 } ]}>

@@ -79,7 +79,7 @@ export default function HistoryScreen ()
             headers: headers,
             body: JSON.stringify( {
                 userId: userId,
-                type: 0, 
+                type: 0,
                 userType: userType,
                 payMode: driverBillingType
             } ),
@@ -100,12 +100,13 @@ export default function HistoryScreen ()
                 ToastAndroid.show( "Network error. Please try again.", ToastAndroid.SHORT );
             } )
     }
-    
+
     // FIXED: useFocusEffect to refresh data when screen comes into focus
     useFocusEffect(
-      useCallback(() => {
-        getDeliveryListing();
-      }, [])
+        useCallback( () =>
+        {
+            getDeliveryListing();
+        }, [] )
     );
 
     if ( userType == 3 )
@@ -143,11 +144,13 @@ export default function HistoryScreen ()
                                                 {item.full_name || item.consignee_name}
                                             </Text>
                                             <Text style={[ styles.textDescription, { fontSize: 13, lineHeight: 18 } ]} numberOfLines={2}>
-                                                {item.street}, {item.barangay}, {item.city}, {item.zipcode}
+                                                {item.street}, {item.barangay}, {item.city}
                                             </Text>
-                                            <Text style={[ styles.textDescription, { fontSize: 13, marginTop: 2 } ]}>
-                                                {item.mobile}
-                                            </Text>
+                                            {item.mobile && (
+                                                <Text style={[ styles.textDescription, { fontSize: 13, marginTop: 2 } ]}>
+                                                    {item.mobile}
+                                                </Text>
+                                            )}
                                         </View>
 
                                         <View style={{ alignItems: 'center', paddingTop: 12 }}>
@@ -177,8 +180,8 @@ export default function HistoryScreen ()
                         <View style={{ paddingHorizontal: 20, paddingVertical: 20 }}>
                             {/* Header with close button */}
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-                                <Text style={[styles.textLabel, { fontSize: 18, fontWeight: 'bold' }]}>Delivery Details</Text>
-                                <TouchableOpacity onPress={() => setViewDeliveryModalVisible(false)} style={{ padding: 5 }}>
+                                <Text style={[ styles.textLabel, { fontSize: 18, fontWeight: 'bold' } ]}>Delivery Details</Text>
+                                <TouchableOpacity onPress={() => setViewDeliveryModalVisible( false )} style={{ padding: 5 }}>
                                     <Ionicons name='close' size={24} color={COLORS.label} />
                                 </TouchableOpacity>
                             </View>
@@ -237,7 +240,12 @@ export default function HistoryScreen ()
                                     <Ionicons name='location-outline' size={20} color={'red'} style={{ marginRight: 10, paddingTop: 2, marginBottom: 5 }} />
                                     <View style={{ flex: 1 }}>
                                         <Text style={[ styles.textLabel, { marginBottom: 4 } ]}>{modalData.consignee_name || modalData.full_name}</Text>
-                                        <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>{modalData.street}, {modalData.barangay}, {modalData.city}, {modalData.zipcode}</Text>
+                                        <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>{modalData.street}, {modalData.barangay}, {modalData.city}</Text>
+                                        {modalData.mobile && (
+                                            <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>
+                                                {modalData.mobile}
+                                            </Text>
+                                        )}
                                         <View style={{ height: 1, backgroundColor: COLORS.inputBorder, marginVertical: 12 }} />
                                         <Text style={[ styles.textDescription, { marginBottom: 8, fontWeight: 'bold', fontSize: 14 } ]}>
                                             Total Amount Collected: {'\u20B1'}
@@ -283,7 +291,7 @@ export default function HistoryScreen ()
                                                 <Text style={[ styles.textLabel, { fontSize: 18 } ]}>{item.consignee_name || 'N/A'}</Text>
                                                 <Text style={styles.textDescription}>{item.tracking_id}</Text>
                                                 <Text style={[ styles.textDescription, { marginTop: 5 } ]}>
-                                                    Amount: ₱{item.total_amount_to_be_collected ? parseFloat(item.total_amount_to_be_collected).toFixed(2) : '0.00'}
+                                                    Amount: ₱{item.total_amount_to_be_collected ? parseFloat( item.total_amount_to_be_collected ).toFixed( 2 ) : '0.00'}
                                                 </Text>
                                             </View>
                                         </View>
@@ -308,8 +316,8 @@ export default function HistoryScreen ()
                         <View style={{ paddingHorizontal: 20, paddingVertical: 20 }}>
                             {/* Header with close button */}
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-                                <Text style={[styles.textLabel, { fontSize: 18, fontWeight: 'bold' }]}>Order Details</Text>
-                                <TouchableOpacity onPress={() => setViewDeliveryModalVisible(false)} style={{ padding: 5 }}>
+                                <Text style={[ styles.textLabel, { fontSize: 18, fontWeight: 'bold' } ]}>Order Details</Text>
+                                <TouchableOpacity onPress={() => setViewDeliveryModalVisible( false )} style={{ padding: 5 }}>
                                     <Ionicons name='close' size={24} color={COLORS.label} />
                                 </TouchableOpacity>
                             </View>
@@ -322,17 +330,17 @@ export default function HistoryScreen ()
                                     </Text>
                                 )}
                             </View>
-                            
+
                             <View style={[ styles.card, { marginBottom: 15 } ]}>
                                 <Text style={[ styles.textLabel, { marginBottom: 25 } ]}>Order Status:</Text>
                                 <View style={{ paddingLeft: 10 }}>
                                     {deliveryStatus.map( ( delStatus, index ) => (
                                         <View key={index} style={{ marginBottom: 5 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                                <Ionicons 
-                                                    name={modalData.delivery_status >= delStatus.id ? 'checkmark-circle-outline' : 'ellipse-outline'} 
-                                                    size={24} 
-                                                    color={COLORS.button} 
+                                                <Ionicons
+                                                    name={modalData.delivery_status >= delStatus.id ? 'checkmark-circle-outline' : 'ellipse-outline'}
+                                                    size={24}
+                                                    color={COLORS.button}
                                                 />
                                                 <Text style={[ styles.textDescription, { marginLeft: 12, fontWeight: delStatus.id == modalData.delivery_status ? '600' : 'normal', color: delStatus.id == modalData.delivery_status ? COLORS.button : COLORS.label } ]}>
                                                     {delStatus.title}
@@ -342,10 +350,10 @@ export default function HistoryScreen ()
                                                 <View style={{ marginLeft: 11, height: 15, borderLeftWidth: 2, borderLeftColor: COLORS.button }} />
                                             )}
                                         </View>
-                                    ))}
+                                    ) )}
                                 </View>
                             </View>
-                            
+
                             <View style={[ styles.card, { marginBottom: 15 } ]}>
                                 <Text style={[ styles.textLabel, { marginBottom: 15 } ]}>Shipping Information:</Text>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
@@ -353,11 +361,11 @@ export default function HistoryScreen ()
                                     <View style={{ flex: 1 }}>
                                         <Text style={[ styles.textLabel, { marginBottom: 4 } ]}>{modalData.shipper_name || 'N/A'}</Text>
                                         <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>{modalData.tracking_id}</Text>
-                                        <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>{formatDeliveryDate(modalData.created_at)}</Text>
+                                        <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>{formatDeliveryDate( modalData.created_at )}</Text>
                                     </View>
                                 </View>
                             </View>
-                            
+
                             <View style={[ styles.card, { marginBottom: 15 } ]}>
                                 <Text style={[ styles.textLabel, { marginBottom: 15 } ]}>Delivery Information:</Text>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
@@ -365,19 +373,23 @@ export default function HistoryScreen ()
                                     <View style={{ flex: 1 }}>
                                         <Text style={[ styles.textLabel, { marginBottom: 4 } ]}>{modalData.consignee_name || modalData.full_name}</Text>
                                         <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>
-                                            {modalData.street}, {modalData.barangay}, {modalData.city}, {modalData.zipcode}
+                                            {modalData.street}, {modalData.barangay}, {modalData.city}
                                         </Text>
-                                        <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>{modalData.mobile}</Text>
-                                        
+                                        {modalData.mobile && (
+                                            <Text style={[ styles.textDescription, { marginBottom: 3 } ]}>
+                                                {modalData.mobile}
+                                            </Text>
+                                        )}
+
                                         <View style={{ height: 1, backgroundColor: COLORS.inputBorder, marginVertical: 12 }} />
-                                        
+
                                         <Text style={[ styles.textDescription, { marginBottom: 8, fontWeight: 'bold', fontSize: 14 } ]}>
-                                            Total Amount: ₱{modalData.total_amount_to_be_collected ? parseFloat(modalData.total_amount_to_be_collected).toFixed(2) : '0.00'}
+                                            Total Amount: ₱{modalData.total_amount_to_be_collected ? parseFloat( modalData.total_amount_to_be_collected ).toFixed( 2 ) : '0.00'}
                                         </Text>
-                                        
+
                                         {modalData.delivery_status === 3 && modalData.estimated_time && (
                                             <Text style={[ styles.textDescription, { fontStyle: 'italic', color: 'green' } ]}>
-                                                Delivered on: {formatDeliveryDate(modalData.estimated_time)}
+                                                Delivered on: {formatDeliveryDate( modalData.estimated_time )}
                                             </Text>
                                         )}
                                     </View>
