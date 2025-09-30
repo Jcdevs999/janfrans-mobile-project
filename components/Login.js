@@ -5,6 +5,7 @@ import { COLORS } from '../colors';
 const styles = require('../styles');
 import { ToastAndroid } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
 
 export default function Login() {
     const navigation = useNavigation();
@@ -78,71 +79,77 @@ export default function Login() {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.body}>
-                <View style={styles.logoContainer}>
-                    <Image
-                        style={styles.logo}
-                        source={require('../assets/janfrans.png')}
-                    />
-                </View>
-                
-                <Text style={[styles.textLabel, styles.labelAlignment]}>Email</Text>
-                <TextInput
-                    style={styles.textInput}
-                    onChangeText={email => setForm({ ...form, email })}
-                    value={form.email}
-                    placeholder='Email'
-                    autoCapitalize='none'
-                    editable={!isLoading}
-                />
-                {errors.email ? <Text style={styles.warning}>{errors.email}</Text> : null}
-                
-                <Text style={[styles.textLabel, styles.labelAlignment]}>Password</Text>
-                <View style={{ position: 'relative' }}>
+        <LinearGradient
+            colors={COLORS.backgroundGradient}
+            locations={[0.2, 1.0]} // Corresponds to 20% and 100%
+            style={{ flex: 1 }}
+        >
+            <SafeAreaView style={styles.container}>
+                <View style={styles.body}>
+                    <View style={styles.logoContainer}>
+                        <Image
+                            style={styles.logo}
+                            source={require('../assets/janfrans.png')}
+                        />
+                    </View>
+                    
+                    <Text style={[styles.textLabel, styles.labelAlignment]}>Email</Text>
                     <TextInput
-                        style={[styles.textInput, { paddingRight: 50 }]}
-                        onChangeText={password => setForm({ ...form, password })}
-                        value={form.password}
-                        placeholder='Password'
-                        secureTextEntry={!showPassword}
+                        style={styles.textInput}
+                        onChangeText={email => setForm({ ...form, email })}
+                        value={form.email}
+                        placeholder='Email'
+                        autoCapitalize='none'
                         editable={!isLoading}
-                        autoCorrect={false}
-                        autoCapitalize="none"
                     />
-                    {form.password ? (
-                        <TouchableOpacity
-                            style={{
-                                position: 'absolute',
-                                right: 15,
-                                height: '100%',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                width: 30
-                            }}
-                            onPress={() => setShowPassword(!showPassword)}
-                            activeOpacity={0.7}
-                        >
-                            <Icon
-                                name={showPassword ? 'visibility-off' : 'visibility'}
-                                size={22}
-                                color="#666"
-                            />
-                        </TouchableOpacity>
-                    ) : null}
+                    {errors.email ? <Text style={styles.warning}>{errors.email}</Text> : null}
+                    
+                    <Text style={[styles.textLabel, styles.labelAlignment]}>Password</Text>
+                    <View style={{ position: 'relative' }}>
+                        <TextInput
+                            style={[styles.textInput, { paddingRight: 50 }]}
+                            onChangeText={password => setForm({ ...form, password })}
+                            value={form.password}
+                            placeholder='Password'
+                            secureTextEntry={!showPassword}
+                            editable={!isLoading}
+                            autoCorrect={false}
+                            autoCapitalize="none"
+                        />
+                        {form.password ? (
+                            <TouchableOpacity
+                                style={{
+                                    position: 'absolute',
+                                    right: 15,
+                                    height: '100%',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: 30
+                                }}
+                                onPress={() => setShowPassword(!showPassword)}
+                                activeOpacity={0.7}
+                            >
+                                <Icon
+                                    name={showPassword ? 'visibility-off' : 'visibility'}
+                                    size={22}
+                                    color="#666"
+                                />
+                            </TouchableOpacity>
+                        ) : null}
+                    </View>
+                    {errors.password ? <Text style={styles.warning}>{errors.password}</Text> : null}
+                    
+                    <TouchableOpacity 
+                        style={[styles.buttonContainer, isLoading && { opacity: 0.6 }]} 
+                        onPress={loginSubmit}
+                        disabled={isLoading}
+                    >
+                        <Text style={styles.buttonLabel}>
+                            {isLoading ? 'Signing in...' : 'Sign in'}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
-                {errors.password ? <Text style={styles.warning}>{errors.password}</Text> : null}
-                
-                <TouchableOpacity 
-                    style={[styles.buttonContainer, isLoading && { opacity: 0.6 }]} 
-                    onPress={loginSubmit}
-                    disabled={isLoading}
-                >
-                    <Text style={styles.buttonLabel}>
-                        {isLoading ? 'Signing in...' : 'Sign in'}
-                    </Text>
-                </TouchableOpacity>
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </LinearGradient>
     );
 }

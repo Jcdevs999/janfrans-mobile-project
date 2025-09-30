@@ -39,7 +39,7 @@ export default function Dashboard() {
                     tabBarLabelPosition: 'below-icon',
                     tabBarShowLabel: true,
                     tabBarActiveTintColor: COLORS.buttonText,
-                    tabBarInactiveTintColor: COLORS.black,
+                    tabBarInactiveTintColor: COLORS.white,
                     tabBarStyle: {
                         backgroundColor: COLORS.header,
                     },

@@ -2,6 +2,7 @@
   "expo": {
     "name": "Janfrans",
     "slug": "Janfrans",
+    "owner": "jcdevs666",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/janfrans-icon.png",
@@ -25,13 +26,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "82151455-267e-4ff7-9673-bb76a66ac8b4"
-      }
-    },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "208ab1f2-3452-4a9f-a1f8-0a69c34e760a"
+      }
+    }
   }
 }

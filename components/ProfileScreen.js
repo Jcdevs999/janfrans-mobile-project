@@ -502,7 +502,7 @@ export default function ProfileScreen ()
                             <Text style={[ styles.textDescription, { textAlign: 'center', marginVertical: 20 } ]}>Do you really want to Sign Out?</Text>
                             <View>
                                 <TouchableOpacity
-                                    style={styles.buttonContainer}
+                                    style={styles.buttonSignOutContainer}
                                     onPress={() =>
                                     {
                                         navigation.reset( {

@@ -39,7 +39,6 @@ export const useLocationTracking = (userId, userType) => {
                 return;
             }
 
-            console.log('Location permission granted');
 
             // Get initial location immediately
             await updateLocation();
@@ -50,10 +49,8 @@ export const useLocationTracking = (userId, userType) => {
             }, 20000);
 
             isTrackingRef.current = true;
-            console.log('Location tracking started successfully');
 
         } catch (error) {
-            console.error('Failed to start location tracking:', error);
             Alert.alert('Location Error', 'Failed to start location tracking: ' + error.message);
         }
     };
@@ -69,7 +66,6 @@ export const useLocationTracking = (userId, userType) => {
 
     const updateLocation = async () => {
         try {
-            console.log('Getting current location...');
             
             const location = await Location.getCurrentPositionAsync({
                 accuracy: Location.Accuracy.High,

@@ -54,7 +54,7 @@ export default function App ()
             headerStyle: {
               backgroundColor: COLORS.header
             },
-            headerTintColor: COLORS.buttonText,
+            headerTintColor: COLORS.white,
             headerBackVisible: false,
             headerTitleStyle: {
               fontFamily: 'Poppins-SemiBold', 

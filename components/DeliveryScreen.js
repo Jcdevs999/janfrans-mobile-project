@@ -425,6 +425,7 @@ export default function DeliveryScreen ()
     if ( userType == 3 )
     {
         return (
+            
             <View style={styles.container}>
                 {driverBillingType && (
                     <View style={{ backgroundColor: COLORS.inputText, paddingHorizontal: 15, paddingVertical: 8, marginBottom: 10, borderRadius: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
